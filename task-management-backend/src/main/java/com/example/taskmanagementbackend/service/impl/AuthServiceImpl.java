@@ -4,6 +4,7 @@ import com.example.taskmanagementbackend.dto.request.LoginRequest;
 import com.example.taskmanagementbackend.dto.request.RegisterRequest;
 import com.example.taskmanagementbackend.dto.response.UserResponse;
 import com.example.taskmanagementbackend.entity.User;
+import com.example.taskmanagementbackend.enums.Role;
 import com.example.taskmanagementbackend.exception.DuplicateResourceException;
 import com.example.taskmanagementbackend.exception.InvalidCredentialsException;
 import com.example.taskmanagementbackend.exception.ResourceNotFoundException;
@@ -12,6 +13,8 @@ import com.example.taskmanagementbackend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .role(request.getRole() != null ? request.getRole() : Role.EMPLOYEE)
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -38,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
         return UserResponse.builder()
                 .name(savedUser.getName())
                 .email(savedUser.getEmail())
+                .role(savedUser.getRole())
                 .build();
     }
 
@@ -54,6 +59,19 @@ public class AuthServiceImpl implements AuthService {
         return UserResponse.builder()
                 .name(user.getName())
                 .email(user.getEmail())
+                .role(user.getRole())
                 .build();
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> UserResponse.builder()
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .role(user.getRole())
+                        .build())
+                .toList();
     }
 }

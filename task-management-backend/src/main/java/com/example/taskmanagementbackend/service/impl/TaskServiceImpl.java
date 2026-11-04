@@ -91,6 +91,14 @@ public class TaskServiceImpl implements TaskService {
         return mapToResponse(task);
     }
 
+    @Override
+    public List<TaskResponse> getTasksByAssignedUser(String email) {
+        return taskRepository.findByAssignedUserEmail(email)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     private TaskResponse mapToResponse(Task task) {
         return TaskResponse.builder()
                 .id(task.getId())

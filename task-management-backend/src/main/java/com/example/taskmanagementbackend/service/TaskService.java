@@ -16,4 +16,6 @@ public interface TaskService {
     void deleteTask(Long id);
 
     TaskResponse getTaskById(Long id);
+
+    List<TaskResponse> getTasksByAssignedUser(String email);
 }

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -51,5 +52,20 @@ public class AuthController {
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<ApiResponse<List<UserResponse>>> getAllUsers() {
+        List<UserResponse> users = authService.getAllUsers();
+
+        ApiResponse<List<UserResponse>> apiResponse = ApiResponse.<List<UserResponse>>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message("Users fetched successfully")
+                .data(users)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }

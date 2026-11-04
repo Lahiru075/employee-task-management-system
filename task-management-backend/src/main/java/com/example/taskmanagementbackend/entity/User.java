@@ -1,5 +1,6 @@
 package com.example.taskmanagementbackend.entity;
 
+import com.example.taskmanagementbackend.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     @OneToMany(mappedBy = "assignedUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.role == null) {
+            this.role = Role.EMPLOYEE;
+        }
+    }
 }

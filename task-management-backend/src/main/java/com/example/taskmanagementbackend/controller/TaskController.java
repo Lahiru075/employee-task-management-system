@@ -99,5 +99,20 @@ public class TaskController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/my-tasks")
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> getMyTasks(@RequestParam String email) {
+        List<TaskResponse> tasks = taskService.getTasksByAssignedUser(email);
+
+        ApiResponse<List<TaskResponse>> apiResponse = ApiResponse.<List<TaskResponse>>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message("My tasks fetched successfully")
+                .data(tasks)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 
 }
