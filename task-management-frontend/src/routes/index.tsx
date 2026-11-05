@@ -4,6 +4,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const Login = lazy(() => import('../page/Login'));
 const Register = lazy(() => import('../page/Register'));
+const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
+const Dashboard = lazy(() => import('../page/Dashboard'));
+const Employees = lazy(() => import('../page/Employees'));
 
 type RequireAuthType = {
   children: ReactNode;
@@ -62,14 +65,14 @@ export default function AppRoutes() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* <Route
-            path="/dashboard"
-            element={
-              <RequireAuth allowedRoles={['ADMIN', 'EMPLOYEE']}>
-                <Dashboard />
+          <Route element={<RequireAuth><DashboardLayout /></RequireAuth>}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/employees" element={
+              <RequireAuth allowedRoles={['ADMIN']}>
+                <Employees />
               </RequireAuth>
-            }
-          /> */}
+            } />
+          </Route>
 
           {/* Catch-all redirect */}
           <Route path="*" element={<Navigate to="/login" replace />} />

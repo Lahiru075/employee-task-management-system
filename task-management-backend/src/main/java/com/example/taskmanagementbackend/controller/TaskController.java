@@ -3,6 +3,7 @@ package com.example.taskmanagementbackend.controller;
 import com.example.taskmanagementbackend.dto.request.TaskRequest;
 import com.example.taskmanagementbackend.dto.response.ApiResponse;
 import com.example.taskmanagementbackend.dto.response.TaskResponse;
+import com.example.taskmanagementbackend.enums.TaskStatus;
 import com.example.taskmanagementbackend.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -52,6 +54,25 @@ public class TaskController {
                 .build();
 
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<TaskResponse>> updateTaskStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> statusMap) {
+
+        TaskStatus status = TaskStatus.valueOf(statusMap.get("status"));
+        TaskResponse response = taskService.updateTaskStatus(id, status);
+
+        ApiResponse<TaskResponse> apiResponse = ApiResponse.<TaskResponse>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message("Task status updated successfully")
+                .data(response)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping

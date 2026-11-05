@@ -99,6 +99,16 @@ public class TaskServiceImpl implements TaskService {
                 .toList();
     }
 
+    @Override
+    public TaskResponse updateTaskStatus(Long id, TaskStatus status) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
+
+        task.setStatus(status);
+        Task updatedTask = taskRepository.save(task);
+        return mapToResponse(updatedTask);
+    }
+
     private TaskResponse mapToResponse(Task task) {
         return TaskResponse.builder()
                 .id(task.getId())

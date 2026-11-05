@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll()
+        return userRepository.findByRole(Role.EMPLOYEE)
                 .stream()
                 .map(user -> UserResponse.builder()
                         .name(user.getName())
