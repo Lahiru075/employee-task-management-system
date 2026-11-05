@@ -306,10 +306,5 @@ In compliance with **Section 10 (Candidate Guidelines and Conditions)** of the a
 - **Repository URL:** [employee-task-management-system](https://github.com/Lahiru075/employee-task-management-system)
 - **Position Applied:** Software Engineering Intern
 - **Evaluation Company:** NextGen CodeX (Pvt) Ltd
-- **Submission Date:** November 2026
-```
-
+- **Submission Date:** November 2026```
 ---
-   git commit -m "docs: add comprehensive production-ready README documentation"
-   git push origin main
-   ```
