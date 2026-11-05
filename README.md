@@ -34,9 +34,9 @@ The persistence layer utilizes a relational database structure designed with Ref
 |     email (UNIQUE)      VARCHAR   |             |     title                VARCHAR   |
 |     password            VARCHAR   |             |     description          TEXT      |
 |     role (ADMIN/EMPLOYEE) ENUM    |             |     status (TO_DO/..)    ENUM      |
-|     created_at          DATETIME  |             |     priority (LOW/..)    ENUM      |
-|     updated_at          DATETIME  |             |     due_date             DATE      |
-+-----------------------------------+             |     created_at           DATETIME  |
++-----------------------------------+             |     priority (LOW/..)    ENUM      |
+                                                  |     due_date             DATE      |
+                                                  |     created_at           DATETIME  |
                                                   |     updated_at           DATETIME  |
                                                   +------------------------------------+
                    Relationship: One-to-Many (One User -> Many Tasks)
@@ -306,5 +306,5 @@ In compliance with **Section 10 (Candidate Guidelines and Conditions)** of the a
 - **Repository URL:** [employee-task-management-system](https://github.com/Lahiru075/employee-task-management-system)
 - **Position Applied:** Software Engineering Intern
 - **Evaluation Company:** NextGen CodeX (Pvt) Ltd
-- **Submission Date:** November 2026```
+- **Submission Date:** November 2026
 ---
