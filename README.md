@@ -66,11 +66,11 @@ Place your screenshots inside a root `./screenshots/` directory:
 
 | 1. Authentication (Sign In) | 2. Admin Workspace Dashboard |
 | :---: | :---: |
-| ![Sign In](./screenshots/login.png) | ![Admin Dashboard](./screenshots/dashboard.png) |
+| ![Sign In](./task-management-backend/screenshots/login.png) | ![Admin Dashboard](./task-management-backend/screenshots/dashboard.png) |
 
 | 3. Task Creation & Assignment Modal | 4. Employee Directory & Directory View |
 | :---: | :---: |
-| ![Create Task Modal](./screenshots/create-task.png) | ![Employee Directory](./screenshots/employees.png) |
+| ![Create Task Modal](./task-management-backend/screenshots/create-task.png) | ![Employee Directory](./task-management-backend/screenshots/employees.png) |
 
 ---
 
