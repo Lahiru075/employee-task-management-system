@@ -70,7 +70,7 @@ Place your screenshots inside a root `./screenshots/` directory:
 
 | 3. Task Creation & Assignment Modal | 4. Employee Directory & Directory View |
 | :---: | :---: |
-| ![Create Task Modal](./task-management-backend/screenshots/create-task.png) | ![Employee Directory](./task-management-backend/screenshots/employees.png) |
+| ![Create Task Modal](./task-management-backend/screenshots/create-tas.png) | ![Employee Directory](./task-management-backend/screenshots/employees.png) |
 
 ---
 
