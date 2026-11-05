@@ -1,5 +1,5 @@
 
-# ⚡ TaskFlow – Enterprise Employee Task Management System
+# ⚡ TaskFlow – Employee Task Management System
 
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
@@ -8,23 +8,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![JUnit 5](https://img.shields.io/badge/JUnit_5-Testing-25A162?style=for-the-badge&logo=junit5&logoColor=white)](https://junit.org/junit5/)
 
-A robust, enterprise-ready Full-Stack Employee Task Management System architected with **Spring Boot** and **React (TypeScript + Tailwind CSS)**. Designed and implemented for the Software Engineering Intern Practical Assessment at **NextGen CodeX (Pvt) Ltd**.
-
----
-
-## 📑 Table of Contents
-- [Project Overview](#-project-overview)
-- [System Architecture & Database Design](#-system-architecture--database-design)
-- [Application Screenshots](#-application-screenshots)
-- [Key Features](#-key-features)
-- [Technology Stack](#-technology-stack)
-- [Repository Structure](#-repository-structure)
-- [Prerequisites](#-prerequisites)
-- [Installation & Getting Started](#-installation--getting-started)
-- [Automated Unit Testing](#-automated-unit-testing)
-- [REST API Documentation](#-rest-api-documentation)
-- [AI Assistance Disclosure](#-ai-assistance-disclosure)
-- [Author & Submission Info](#-author--submission-info)
+A clean, responsive Full-Stack Employee Task Management application built with **Spring Boot** and **React (TypeScript + Tailwind CSS)**. Developed and implemented for the Software Engineering Intern Practical Assessment at **NextGen CodeX (Pvt) Ltd**.
 
 ---
 
