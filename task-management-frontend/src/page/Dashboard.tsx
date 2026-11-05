@@ -9,7 +9,8 @@ import {
   Edit3,
   X,
   Mail,
-  Check
+  Check,
+  ArrowUpDown
 } from 'lucide-react';
 
 import { TaskResponse, TaskRequest, TaskStatus, TaskPriority } from '../types/task';
@@ -39,11 +40,12 @@ const Dashboard: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const isAdmin = user?.role === 'ADMIN';
 
-  // Data & Filter State
+  // Data, Sort & Filter State
   const [tasks, setTasks] = useState<TaskResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
+  const [sortBy, setSortBy] = useState<'DUE_DATE' | 'PRIORITY'>('DUE_DATE');
 
   // Floating Toasts
   const [error, setError] = useState('');
@@ -205,6 +207,18 @@ const Dashboard: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const priorityOrder: Record<string, number> = { HIGH: 3, MEDIUM: 2, LOW: 1 };
+
+  const sortedTasks = [...filteredTasks].sort((a: any, b: any) => {
+    if (sortBy === 'DUE_DATE') {
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+    }
+    if (sortBy === 'PRIORITY') {
+      return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
+    }
+    return 0;
+  });
+
   // Calculate Metrics based on role view
   const totalTasks = tasks.length;
   const todoCount = tasks.filter((t: any) => t.status === 'TO_DO').length;
@@ -314,6 +328,19 @@ const Dashboard: React.FC = () => {
           />
         </div>
 
+        {/* Sort Dropdown */}
+        <div className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-2 rounded-xl shadow-sm shrink-0">
+          <ArrowUpDown size={15} className="text-slate-400" />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            className="text-xs font-bold text-slate-700 bg-transparent outline-none cursor-pointer"
+          >
+            <option value="DUE_DATE">Sort: Due Date (Earliest)</option>
+            <option value="PRIORITY">Sort: Priority (High to Low)</option>
+          </select>
+        </div>
+
         {/* Filter Pills */}
         <div className="flex items-center gap-1 p-1 bg-slate-200/70 rounded-xl overflow-x-auto">
           {(['ALL', 'TO_DO', 'IN_PROGRESS', 'COMPLETED'] as const).map((status) => (
@@ -339,7 +366,7 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center justify-center py-20">
           <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
         </div>
-      ) : filteredTasks.length === 0 ? (
+      ) : sortedTasks.length === 0 ? (
         <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center shadow-sm">
           <Clock size={36} className="mx-auto text-slate-300 mb-3" />
           <h3 className="text-base font-bold text-slate-800">No tasks found</h3>
@@ -351,7 +378,7 @@ const Dashboard: React.FC = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {filteredTasks.map((task) => (
+          {sortedTasks.map((task) => (
             <div
               key={task.id}
               className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
