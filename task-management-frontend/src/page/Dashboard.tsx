@@ -23,6 +23,7 @@ import {
   getTaskByEmail
 } from '../service/task';
 import Swal from 'sweetalert2';
+import { getEmployeeEmails } from '../service/auth';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -56,6 +57,7 @@ const Dashboard: React.FC = () => {
   const [editingTask, setEditingTask] = useState<TaskResponse | null>(null);
   const [formData, setFormData] = useState<TaskRequest>(initialFormState);
   const [modalLoading, setModalLoading] = useState(false);
+  const [employeeEmails, setEmployeeEmails] = useState<string[]>([]);
 
   // Fetch All Tasks
   const fetchTasks = async () => {
@@ -82,6 +84,20 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     fetchTasks();
+
+    if (isAdmin) {
+      const fetchEmails = async () => {
+        try {
+          const res = await getEmployeeEmails();
+          if (res.success) {
+            setEmployeeEmails(res.data);
+          }
+        } catch (err) {
+          console.error('Failed to fetch employee emails:', err);
+        }
+      };
+      fetchEmails();
+    }
   }, []);
 
   // Input Validation (Regex & Rules)
@@ -573,14 +589,23 @@ const Dashboard: React.FC = () => {
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Assignee Email *
                   </label>
-                  <input
-                    type="email"
+                  <select
                     required
-                    placeholder="employee@example.com"
                     value={formData.assignedUserEmail}
                     onChange={(e) => setFormData({ ...formData, assignedUserEmail: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-indigo-500 transition-all"
-                  />
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-indigo-500 transition-all cursor-pointer"
+                  >
+                    <option value="">Select Employee</option>
+                    {employeeEmails.length === 0 ? (
+                      <option disabled value="">No employees found</option>
+                    ) : (
+                      employeeEmails.map((email) => (
+                        <option key={email} value={email}>
+                          {email}
+                        </option>
+                      ))
+                    )}
+                  </select>
                 </div>
               </div>
 

@@ -22,6 +22,16 @@ export const loginUser = async (formData: LoginRequest) => {
     }
 };
 
+export const getEmployeeEmails = async (): Promise<string[]> => {
+    try {
+        const response = await api.get<string[]>('/auth/employees/emails');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching employee emails:', error);
+        throw error;
+    }
+};
+
 export const getAllUsers = async () => {
     try {
         const response = await api.get('/auth/users');

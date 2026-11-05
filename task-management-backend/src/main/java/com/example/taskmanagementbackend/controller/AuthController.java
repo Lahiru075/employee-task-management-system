@@ -68,4 +68,19 @@ public class AuthController {
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/employees/emails")
+    public ResponseEntity<ApiResponse<List<String>>> getEmployeeEmails() {
+        List<String> emails = authService.getEmployeeEmails();
+
+        ApiResponse<List<String>> response = ApiResponse.<List<String>>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message("Employee emails fetched successfully")
+                .data(emails)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 }

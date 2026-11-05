@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +74,13 @@ public class AuthServiceImpl implements AuthService {
                         .role(user.getRole())
                         .build())
                 .toList();
+    }
+
+    @Override
+    public List<String> getEmployeeEmails() {
+        return userRepository.findByRole(Role.EMPLOYEE)
+                .stream()
+                .map(User::getEmail)
+                .collect(Collectors.toList());
     }
 }

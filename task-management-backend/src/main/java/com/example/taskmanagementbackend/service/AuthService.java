@@ -13,4 +13,6 @@ public interface AuthService {
     UserResponse login(@Valid LoginRequest loginRequest);
 
     List<UserResponse> getAllUsers();
+
+    List<String> getEmployeeEmails();
 }
