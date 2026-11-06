@@ -48,7 +48,7 @@ export const deleteTask = async (id: number): Promise<void> => {
 export const getTaskByEmail = async (email: string): Promise<TaskResponse[]> => {
   try {
     const response = await api.get(`/tasks/my-tasks?email=${email}`);
-    return response.data.data;
+    return response.data;
   } catch (error) {
     throw error;
   }

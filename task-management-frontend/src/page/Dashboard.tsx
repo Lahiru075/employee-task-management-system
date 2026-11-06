@@ -69,6 +69,7 @@ const Dashboard: React.FC = () => {
         res = await getAllTasks();
       } else {
         res = await getTaskByEmail(user.email);
+    
       }
 
       if (res.success) {
